@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_main"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="16dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Báo cáo"
+            android:textColor="@color/text_primary"
+            android:textSize="26sp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="90dp">
+
+            <!-- SAVINGS RATE CARD -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="24dp"
+                android:layout_marginBottom="20dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tỷ lệ tiết kiệm"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="8dp"/>
+                <TextView
+                    android:id="@+id/tv_saving_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="35%"
+                    android:textColor="@color/accent_teal"
+                    android:textSize="48sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp"/>
+                <TextView
+                    android:id="@+id/tv_saving_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0đ / 0đ"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <!-- INCOME VS EXPENSE -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginBottom="20dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:background="@drawable/bg_card"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="↑ Thu nhập" android:textColor="@color/success"
+                        android:textSize="13sp" android:layout_marginBottom="6dp"/>
+                    <TextView android:id="@+id/tv_report_income"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="0đ" android:textColor="@color/success"
+                        android:textSize="18sp" android:textStyle="bold"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/bg_card"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="↓ Chi tiêu" android:textColor="@color/danger"
+                        android:textSize="13sp" android:layout_marginBottom="6dp"/>
+                    <TextView android:id="@+id/tv_report_expense"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="0đ" android:textColor="@color/danger"
+                        android:textSize="18sp" android:textStyle="bold"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- TOP SPENDING -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Top chi tiêu"
+                android:textColor="@color/text_primary"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="14dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:layout_marginBottom="14dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="🍔 Ăn uống"
+                        android:textColor="@color/text_primary" android:textSize="15sp"/>
+                    <TextView android:id="@+id/tv_top_food"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="0đ" android:textColor="@color/text_primary"
+                        android:textSize="15sp" android:textStyle="bold"/>
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:layout_marginBottom="14dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="🏠 Nhà cửa"
+                        android:textColor="@color/text_primary" android:textSize="15sp"/>
+                    <TextView android:id="@+id/tv_top_housing"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="0đ" android:textColor="@color/text_primary"
+                        android:textSize="15sp" android:textStyle="bold"/>
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="🎬 Giải trí"
+                        android:textColor="@color/text_primary" android:textSize="15sp"/>
+                    <TextView android:id="@+id/tv_top_entertainment"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="0đ" android:textColor="@color/text_primary"
+                        android:textSize="15sp" android:textStyle="bold"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

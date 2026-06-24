@@ -1,0 +1,16 @@
+package com.example.appmoney;
+
+import static android.os.Build.VERSION_CODES_FULL.R;
+
+import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
+import com.example.appmoney.R;
+
+public class AddTransactionActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // Tạm thời để trống, sẽ code tiếp ở bước sau
+        setContentView(R.layout.activity_main);
+    }
+}

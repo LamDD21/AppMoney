@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_main"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="40dp">
+
+        <!-- HEADER -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="24dp">
+
+            <TextView
+                android:id="@+id/btn_back"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_icon_btn"
+                android:gravity="center"
+                android:text="←"
+                android:textColor="@color/text_primary"
+                android:textSize="20sp"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Thêm Chi Tiêu"
+                android:textColor="@color/text_primary"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <View android:layout_width="44dp" android:layout_height="44dp"/>
+        </LinearLayout>
+
+        <!-- TYPE TOGGLE -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/bg_card"
+            android:padding="4dp"
+            android:layout_marginBottom="24dp">
+
+            <Button
+                android:id="@+id/btn_expense"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_btn_primary"
+                android:text="Chi tiêu"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"/>
+
+            <Button
+                android:id="@+id/btn_income"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:text="Thu nhập"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"/>
+        </LinearLayout>
+
+        <!-- AMOUNT -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_card"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="24dp"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nhập số tiền"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp"
+                android:layout_marginBottom="4dp"/>
+
+            <EditText
+                android:id="@+id/et_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="0"
+                android:textColorHint="@color/text_hint"
+                android:textColor="@color/text_primary"
+                android:textSize="44sp"
+                android:textStyle="bold"
+                android:background="@android:color/transparent"
+                android:inputType="numberDecimal"
+                android:maxLines="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="VNĐ"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp"/>
+        </LinearLayout>
+
+        <!-- CATEGORY LABEL -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Danh mục"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="10dp"/>
+
+        <!-- CATEGORY GRID ROW 1 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            android:layout_marginBottom="8dp">
+
+            <LinearLayout android:id="@+id/cat_food"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:layout_marginEnd="6dp"
+                android:background="@drawable/bg_category_option"
+                android:orientation="vertical" android:gravity="center"
+                android:padding="14dp" android:selected="true"
+                android:clickable="true" android:focusable="true">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="🍔" android:textSize="26sp" android:layout_marginBottom="4dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Ăn uống" android:textColor="@color/text_primary"
+                    android:textSize="11sp" android:textStyle="bold"/>
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/cat_transport"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:layout_marginEnd="6dp"
+                android:background="@drawable/bg_category_option"
+                android:orientation="vertical" android:gravity="center"
+                android:padding="14dp"
+                android:clickable="true" android:focusable="true">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="🚕" android:textSize="26sp" android:layout_marginBottom="4dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Di chuyển" android:textColor="@color/text_primary"
+                    android:textSize="11sp" android:textStyle="bold"/>
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/cat_entertainment"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_category_option"
+                android:orientation="vertical" android:gravity="center"
+                android:padding="14dp"
+                android:clickable="true" android:focusable="true">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="🎬" android:textSize="26sp" android:layout_marginBottom="4dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Giải trí" android:textColor="@color/text_primary"
+                    android:textSize="11sp" android:textStyle="bold"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- CATEGORY GRID ROW 2 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            android:layout_marginBottom="20dp">
+
+            <LinearLayout android:id="@+id/cat_health"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:layout_marginEnd="6dp"
+                android:background="@drawable/bg_category_option"
+                android:orientation="vertical" android:gravity="center"
+                android:padding="14dp"
+                android:clickable="true" android:focusable="true">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="💊" android:textSize="26sp" android:layout_marginBottom="4dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Sức khoẻ" android:textColor="@color/text_primary"
+                    android:textSize="11sp" android:textStyle="bold"/>
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/cat_housing"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:layout_marginEnd="6dp"
+                android:background="@drawable/bg_category_option"
+                android:orientation="vertical" android:gravity="center"
+                android:padding="14dp"
+                android:clickable="true" android:focusable="true">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="🏠" android:textSize="26sp" android:layout_marginBottom="4dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Nhà cửa" android:textColor="@color/text_primary"
+                    android:textSize="11sp" android:textStyle="bold"/>
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/cat_other"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_category_option"
+                android:orientation="vertical" android:gravity="center"
+                android:padding="14dp"
+                android:clickable="true" android:focusable="true">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="📦" android:textSize="26sp" android:layout_marginBottom="4dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Khác" android:textColor="@color/text_primary"
+                    android:textSize="11sp" android:textStyle="bold"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- DESCRIPTION -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mô tả"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/et_description"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@drawable/bg_card"
+            android:hint="Nhập mô tả..."
+            android:textColorHint="@color/text_hint"
+            android:textColor="@color/text_primary"
+            android:textSize="15sp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- DATE -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ngày"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <LinearLayout
+            android:id="@+id/layout_date"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@drawable/bg_card"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_marginBottom="32dp"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="📅  " android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/text_primary"
+                android:textSize="15sp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="›" android:textColor="@color/text_secondary" android:textSize="20sp"/>
+        </LinearLayout>
+
+        <!-- SAVE BUTTON -->
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@drawable/bg_btn_primary"
+            android:text="Lưu giao dịch"
+            android:textColor="@color/text_primary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"/>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

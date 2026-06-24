@@ -1,0 +1,68 @@
+package com.example.appmoney.model;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+// @Entity = Room sẽ tạo bảng "transactions" trong SQLite
+@Entity(tableName = "transactions")
+public class Transaction {
+
+    @PrimaryKey(autoGenerate = true)
+    public long id;           // ID tự tăng
+
+    public String type;       // "expense" hoặc "income"
+    public String category;   // "food", "transport"...
+    public double amount;     // Số tiền (âm = chi tiêu, dương = thu nhập)
+    public String description;// Ghi chú
+    public long date;         // Ngày giờ dạng timestamp
+
+    // Constructor đầy đủ
+    public Transaction(String type, String category,
+                       double amount, String description, long date) {
+        this.type        = type;
+        this.category    = category;
+        this.amount      = amount;
+        this.description = description;
+        this.date        = date;
+    }
+
+    // Trả về emoji theo danh mục
+    public String getCategoryEmoji() {
+        switch (category) {
+            case "food":          return "🍜";
+            case "transport":     return "🚗";
+            case "entertainment": return "🎮";
+            case "health":        return "💊";
+            case "shopping":      return "🛒";
+            case "housing":       return "🏠";
+            case "salary":        return "💼";
+            case "bonus":         return "💰";
+            default:              return "📦";
+        }
+    }
+
+    // Trả về tên danh mục tiếng Việt
+    public String getCategoryName() {
+        switch (category) {
+            case "food":          return "Ăn uống";
+            case "transport":     return "Di chuyển";
+            case "entertainment": return "Giải trí";
+            case "health":        return "Sức khoẻ";
+            case "shopping":      return "Mua sắm";
+            case "housing":       return "Nhà ở";
+            case "salary":        return "Lương";
+            case "bonus":         return "Thưởng";
+            default:              return "Khác";
+        }
+    }
+
+  
+    public String getFormattedAmount() {
+        String prefix = type.equals("expense") ? "-" : "+";
+        double abs = Math.abs(amount);
+        return String.format("%s%,.0fđ", prefix, abs);
+    }
+
+    public boolean isExpense() {
+        return "expense".equals(type);
+    }
+}
