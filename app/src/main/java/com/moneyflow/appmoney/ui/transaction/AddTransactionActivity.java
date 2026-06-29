@@ -1,4 +1,4 @@
-package com.moneyflow.app.ui.transaction;
+package com.example.appmoney.ui.transaction;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -7,10 +7,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.moneyflow.app.R;
-import com.moneyflow.app.database.AppDatabase;
-import com.moneyflow.app.databinding.ActivityAddTransactionBinding;
-import com.moneyflow.app.model.Transaction;
+import com.example.appmoney.R;
+import com.example.appmoney.database.AppDatabase;
+import com.example.appmoney.databinding.ActivityAddTransactionBinding;
+import com.example.appmoney.model.Transaction;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import java.util.concurrent.Executors;
 public class AddTransactionActivity extends AppCompatActivity {
 
     private ActivityAddTransactionBinding binding;
-    private String selectedType     = "expense";
+    private String selectedType = "expense";
     private String selectedCategory = "food";
     private final Calendar calendar = Calendar.getInstance();
     private List<LinearLayout> catViews;
@@ -33,54 +33,50 @@ public class AddTransactionActivity extends AppCompatActivity {
         binding = ActivityAddTransactionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Nhận type từ Intent (expense / income)
         String intentType = getIntent().getStringExtra("type");
-        if (intentType != null) selectedType = intentType;
+        if (intentType != null) {
+            selectedType = intentType;
+        }
 
         updateTypeUI();
         updateDateText();
         setupCategories();
 
-        // Back button
         binding.btnBack.setOnClickListener(v -> finish());
 
-        // Toggle Chi tiêu / Thu nhập
         binding.btnExpense.setOnClickListener(v -> {
             selectedType = "expense";
             updateTypeUI();
         });
+
         binding.btnIncome.setOnClickListener(v -> {
             selectedType = "income";
             updateTypeUI();
         });
 
-        // Chọn ngày
         binding.layoutDate.setOnClickListener(v -> showDatePicker());
 
-        // Lưu giao dịch
         binding.btnSave.setOnClickListener(v -> saveTransaction());
     }
 
-    // Cập nhật giao diện nút Chi tiêu / Thu nhập
     private void updateTypeUI() {
         if ("expense".equals(selectedType)) {
             binding.tvTitle.setText("Thêm Chi Tiêu");
             binding.btnExpense.setBackgroundResource(R.drawable.bg_btn_primary);
             binding.btnExpense.setTextColor(getColor(R.color.text_primary));
-            binding.btnIncome.setBackgroundColor(
-                    android.graphics.Color.TRANSPARENT);
+
+            binding.btnIncome.setBackgroundColor(android.graphics.Color.TRANSPARENT);
             binding.btnIncome.setTextColor(getColor(R.color.text_secondary));
         } else {
             binding.tvTitle.setText("Thêm Thu Nhập");
             binding.btnIncome.setBackgroundResource(R.drawable.bg_btn_primary);
             binding.btnIncome.setTextColor(getColor(R.color.text_primary));
-            binding.btnExpense.setBackgroundColor(
-                    android.graphics.Color.TRANSPARENT);
+
+            binding.btnExpense.setBackgroundColor(android.graphics.Color.TRANSPARENT);
             binding.btnExpense.setTextColor(getColor(R.color.text_secondary));
         }
     }
 
-    // Gắn sự kiện click cho 6 ô danh mục
     private void setupCategories() {
         catViews = new ArrayList<>();
         catViews.add(binding.catFood);
@@ -91,28 +87,33 @@ public class AddTransactionActivity extends AppCompatActivity {
         catViews.add(binding.catOther);
 
         String[] keys = {
-                "food","transport","entertainment",
-                "health","housing","other"
+                "food",
+                "transport",
+                "entertainment",
+                "health",
+                "housing",
+                "other"
         };
 
         for (int i = 0; i < catViews.size(); i++) {
             final String key = keys[i];
+
             catViews.get(i).setOnClickListener(v -> {
-                // Bỏ chọn tất cả
-                for (LinearLayout lv : catViews) lv.setSelected(false);
-                // Chọn cái vừa bấm
+                for (LinearLayout lv : catViews) {
+                    lv.setSelected(false);
+                }
+
                 v.setSelected(true);
                 selectedCategory = key;
             });
         }
 
-        // Mặc định chọn "Ăn uống"
         binding.catFood.setSelected(true);
     }
 
-    // Mở DatePicker để chọn ngày
     private void showDatePicker() {
-        new DatePickerDialog(this,
+        new DatePickerDialog(
+                this,
                 (view, year, month, day) -> {
                     calendar.set(year, month, day);
                     updateDateText();
@@ -125,69 +126,98 @@ public class AddTransactionActivity extends AppCompatActivity {
 
     private void updateDateText() {
         SimpleDateFormat sdf = new SimpleDateFormat(
-                "dd/MM/yyyy", new Locale("vi", "VN"));
+                "dd/MM/yyyy",
+                new Locale("vi", "VN")
+        );
+
         binding.tvDate.setText(sdf.format(calendar.getTime()));
     }
 
-    // Lưu vào database
     private void saveTransaction() {
         String amountStr = binding.etAmount.getText().toString().trim();
 
         if (amountStr.isEmpty()) {
-            Toast.makeText(this,
-                    "Vui lòng nhập số tiền!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(
+                    this,
+                    "Vui lòng nhập số tiền!",
+                    Toast.LENGTH_SHORT
+            ).show();
             return;
         }
 
-        double amount;
+        double inputAmount;
+
         try {
-            amount = Double.parseDouble(amountStr);
+            inputAmount = Double.parseDouble(amountStr);
         } catch (NumberFormatException e) {
-            Toast.makeText(this,
-                    "Số tiền không hợp lệ!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(
+                    this,
+                    "Số tiền không hợp lệ!",
+                    Toast.LENGTH_SHORT
+            ).show();
             return;
         }
 
-        if (amount <= 0) {
-            Toast.makeText(this,
-                    "Số tiền phải lớn hơn 0!", Toast.LENGTH_SHORT).show();
+        if (inputAmount <= 0) {
+            Toast.makeText(
+                    this,
+                    "Số tiền phải lớn hơn 0!",
+                    Toast.LENGTH_SHORT
+            ).show();
             return;
         }
 
         String desc = binding.etDescription.getText().toString().trim();
-        if (desc.isEmpty()) desc = getCategoryName(selectedCategory);
 
-        // Chi tiêu → số âm
-        if ("expense".equals(selectedType)) amount = -amount;
+        if (desc.isEmpty()) {
+            desc = getCategoryName(selectedCategory);
+        }
+
+        double localAmount = inputAmount;
+
+        if ("expense".equals(selectedType)) {
+            localAmount = -inputAmount;
+        }
 
         Transaction txn = new Transaction(
                 selectedType,
                 selectedCategory,
-                amount,
+                localAmount,
                 desc,
                 calendar.getTimeInMillis()
         );
 
-        // Lưu vào DB trên background thread
         Executors.newSingleThreadExecutor().execute(() -> {
             AppDatabase.getInstance(getApplicationContext())
-                    .transactionDao().insert(txn);
+                    .transactionDao()
+                    .insert(txn);
+
             runOnUiThread(() -> {
-                Toast.makeText(this,
-                        "✅ Đã lưu thành công!", Toast.LENGTH_SHORT).show();
-                finish(); // Quay lại màn trước
+                Toast.makeText(
+                        this,
+                        "✅ Đã lưu thành công!",
+                        Toast.LENGTH_SHORT
+                ).show();
+
+                finish();
             });
         });
     }
 
     private String getCategoryName(String key) {
         switch (key) {
-            case "food":          return "Ăn uống";
-            case "transport":     return "Di chuyển";
-            case "entertainment": return "Giải trí";
-            case "health":        return "Sức khoẻ";
-            case "housing":       return "Nhà cửa";
-            default:              return "Khác";
+            case "food":
+                return "Ăn uống";
+            case "transport":
+                return "Di chuyển";
+            case "entertainment":
+                return "Giải trí";
+            case "health":
+                return "Sức khoẻ";
+            case "housing":
+                return "Nhà cửa";
+            default:
+                return "Khác";
         }
     }
 }

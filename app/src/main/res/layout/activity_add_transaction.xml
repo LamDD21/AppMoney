@@ -147,7 +147,7 @@
                 android:layout_weight="1" android:layout_marginEnd="6dp"
                 android:background="@drawable/bg_category_option"
                 android:orientation="vertical" android:gravity="center"
-                android:padding="14dp" android:selected="true"
+                android:padding="14dp"
                 android:clickable="true" android:focusable="true">
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                     android:text="🍔" android:textSize="26sp" android:layout_marginBottom="4dp"/>

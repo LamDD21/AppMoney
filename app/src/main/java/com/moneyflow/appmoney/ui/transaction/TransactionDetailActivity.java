@@ -1,4 +1,4 @@
-package com.moneyflow.app.ui.transaction;
+package com.example.appmoney.ui.transaction;
 
 import android.os.Bundle;
 import android.widget.Toast;
@@ -6,10 +6,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.moneyflow.app.R;
-import com.moneyflow.app.database.AppDatabase;
-import com.moneyflow.app.databinding.ActivityTransactionDetailBinding;
-import com.moneyflow.app.model.Transaction;
+import com.example.appmoney.R;
+import com.example.appmoney.database.AppDatabase;
+import com.example.appmoney.databinding.ActivityTransactionDetailBinding;
+import com.example.appmoney.model.Transaction;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

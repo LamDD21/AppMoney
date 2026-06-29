@@ -1,4 +1,4 @@
-package com.moneyflow.app.ui.home;
+package com.example.appmoney.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,15 +11,16 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.moneyflow.app.MainActivity;
-import com.moneyflow.app.adapter.TransactionAdapter;
-import com.moneyflow.app.database.AppDatabase;
-import com.moneyflow.app.databinding.FragmentHomeBinding;
-import com.moneyflow.app.ui.budget.BudgetFragment;
-import com.moneyflow.app.ui.reports.ReportsFragment;
-import com.moneyflow.app.ui.transaction.AddTransactionActivity;
-import com.moneyflow.app.ui.transaction.TransactionDetailActivity;
-import com.moneyflow.app.ui.transaction.TransactionsFragment;
+import com.example.appmoney.MainActivity;
+import com.example.appmoney.adapter.TransactionAdapter;
+import com.example.appmoney.database.AppDatabase;
+import com.example.appmoney.databinding.FragmentHomeBinding;
+import com.example.appmoney.ui.budget.BudgetFragment;
+import com.example.appmoney.ui.reports.ReportsFragment;
+import com.example.appmoney.ui.transaction.AddTransactionActivity;
+import com.example.appmoney.ui.transaction.TransactionDetailActivity;
+import com.example.appmoney.ui.transaction.TransactionsFragment;
+import com.example.appmoney.app.utils.SessionManager;
 
 import java.util.concurrent.Executors;
 
@@ -32,7 +33,12 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+
+        SessionManager session = new SessionManager(requireContext());
+        binding.tvUsername.setText(session.getFullName());
+
         return binding.getRoot();
     }
 
@@ -40,6 +46,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view,
                               @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         setupRecyclerView();
         setupClickListeners();
     }
@@ -47,7 +54,10 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        loadSummary();
+
+        if (binding != null) {
+            loadSummary();
+        }
     }
 
     private void setupRecyclerView() {
@@ -66,22 +76,34 @@ public class HomeFragment extends Fragment {
         binding.rvRecent.setNestedScrollingEnabled(false);
 
         AppDatabase.getInstance(requireContext())
-                .transactionDao().getAll()
+                .transactionDao()
+                .getAll()
                 .observe(getViewLifecycleOwner(), list -> {
+                    if (list == null) return;
+
                     adapter.setData(list.size() > 5
-                            ? list.subList(0, 5) : list);
+                            ? list.subList(0, 5)
+                            : list);
                 });
     }
 
     private void loadSummary() {
         Executors.newSingleThreadExecutor().execute(() -> {
-            double income  = AppDatabase.getInstance(requireContext())
-                    .transactionDao().getTotalIncome();
+            double income = AppDatabase.getInstance(requireContext())
+                    .transactionDao()
+                    .getTotalIncome();
+
             double expense = AppDatabase.getInstance(requireContext())
-                    .transactionDao().getTotalExpense();
+                    .transactionDao()
+                    .getTotalExpense();
+
             double balance = income - expense;
 
+            if (getActivity() == null || binding == null) return;
+
             requireActivity().runOnUiThread(() -> {
+                if (binding == null) return;
+
                 binding.tvBalance.setText(fmt(balance));
                 binding.tvIncome.setText(fmt(income));
                 binding.tvExpense.setText(fmt(expense));
@@ -106,12 +128,16 @@ public class HomeFragment extends Fragment {
 
         binding.menuTransactions.setOnClickListener(v ->
                 go(new TransactionsFragment()));
+
         binding.menuBudget.setOnClickListener(v ->
                 go(new BudgetFragment()));
+
         binding.menuReports.setOnClickListener(v ->
                 go(new ReportsFragment()));
+
         binding.menuCategories.setOnClickListener(v ->
                 go(new TransactionsFragment()));
+
         binding.tvSeeAll.setOnClickListener(v ->
                 go(new TransactionsFragment()));
     }

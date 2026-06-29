@@ -1,5 +1,6 @@
-package com.moneyflow.app.ui.profile;
+package com.example.appmoney.ui.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +12,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import com.moneyflow.app.databinding.FragmentProfileBinding;
+import com.example.appmoney.LoginActivity;
+import com.example.appmoney.databinding.FragmentProfileBinding;
+import com.example.appmoney.app.utils.SessionManager;
 
 public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
+    private SessionManager session;
 
     @Nullable
     @Override
@@ -23,6 +27,7 @@ public class ProfileFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
+        session = new SessionManager(requireContext());
         return binding.getRoot();
     }
 
@@ -31,9 +36,22 @@ public class ProfileFragment extends Fragment {
                               @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        String fullName = session.getFullName();
+        String email = session.getEmail();
+        String loginName = session.getLoginName();
+
+        binding.tvProfileName.setText(fullName);
+        binding.tvProfileEmail.setText(email.isEmpty() ? loginName : email);
+
+        if (fullName != null && !fullName.isEmpty()) {
+            binding.tvAvatar.setText(
+                    String.valueOf(fullName.charAt(0)).toUpperCase()
+            );
+        }
+
         binding.itemName.setOnClickListener(v ->
                 Toast.makeText(requireContext(),
-                        "Chỉnh sửa tên", Toast.LENGTH_SHORT).show());
+                        "Tên: " + fullName, Toast.LENGTH_SHORT).show());
 
         binding.itemNotifications.setOnClickListener(v ->
                 Toast.makeText(requireContext(),
@@ -48,8 +66,14 @@ public class ProfileFragment extends Fragment {
                         .setTitle("Đăng xuất")
                         .setMessage("Bạn có chắc muốn đăng xuất?")
                         .setNegativeButton("Huỷ", null)
-                        .setPositiveButton("Đăng xuất", (d, w) ->
-                                requireActivity().finish())
+                        .setPositiveButton("Đăng xuất", (d, w) -> {
+                            session.logout();
+
+                            Intent intent = new Intent(requireContext(), LoginActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                                    | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        })
                         .show());
     }
 

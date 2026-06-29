@@ -1,4 +1,4 @@
-package com.moneyflow.app.model;
+package com.example.appmoney.model;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

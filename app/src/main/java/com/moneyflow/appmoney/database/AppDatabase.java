@@ -1,4 +1,4 @@
-package com.moneyflow.app.database;
+package com.example.appmoney.database;
 
 import android.content.Context;
 
@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.moneyflow.app.model.Transaction;
+import com.example.appmoney.model.Transaction;
 
 @Database(entities = {Transaction.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {

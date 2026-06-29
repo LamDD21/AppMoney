@@ -1,4 +1,4 @@
-package com.moneyflow.app.adapter;
+package com.example.appmoney.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,8 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.moneyflow.app.R;
-import com.moneyflow.app.model.Transaction;
+import com.example.appmoney.R;
+import com.example.appmoney.model.Transaction;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
